@@ -1,0 +1,25 @@
+-- mostrar el número de piezas difentes compradas por el proyecto J2
+select count(distinct codpie)
+from ventas 
+where codpj='J2';
+--Calcular, para cada pieza, la cantidad total vendida y la media 
+select codpie, count(distinct codpj) num_proyectos, sum(cantidad) total_vendido, avg(cantidad) media
+from ventas
+group by codpie
+order by codpie;
+--Calcular, para cada pieza de color blanco, la cantidad total vendida y la media 
+select ventas.codpie, count(distinct codpj) num_proyectos, sum(cantidad) total_vendido, avg(cantidad) media
+from ventas, pieza where ventas.codpie=pieza.codpie and color ='Blanco'
+group by ventas.codpie
+order by ventas.codpie;
+-- Calcular, para cada pieza, la cantidad total vendida y la media y muestar sólo aquéllas en las la cantidad
+-- supere las 2000 unidades
+select codpie, count(distinct codpj) num_proyectos, sum(cantidad) total_vendido, avg(cantidad) media
+from ventas
+group by codpie HAVING MAX(cantidad)>300
+order by codpie;
+
+select codpro, sum(cantidad) total
+from ventas
+group by codpro
+having sum(cantidad) >= ALL (select sum(cantidad) from ventas group by codpro);

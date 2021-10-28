@@ -1,0 +1,73 @@
+------------------ Problemas Propuestos 6.8 -------------------------
+-------- Ejercicio 1 ------------
+
+select codpro from ventas where ventas.codpj='J1';
+
+-------- Ejercicio 2 ------------
+
+select * from ventas where cantidad>=100;
+
+-------- Ejercicio 3 ------------
+
+select p1.nompro, pi.nompie, pj.nompj
+from proveedor p1, pieza pi, proyecto pj
+where p1.ciudad=pi.ciudad and pi.ciudad=pj.ciudad and p1.ciudad=pj.ciudad;
+
+-------- Ejercicio 4 ------------
+
+select nompie from ventas v, proveedor pv, pieza pi
+where v.codpro=pv.codpro and v.codpie=pi.codpie and pv.ciudad='Londres';
+
+-------- Ejercicio 5 ------------
+
+select pv.ciudad, pj.ciudad from proveedor pv, ventas v, proyecto pj
+where v.codpro=pv.codpro and pj.codpj=v.codpj;
+
+-------- Ejercicio 6 ------------
+
+select pi.codpie from ventas v, proyecto pj, proveedor pv, pieza pi
+where v.codpro=pv.codpro and v.codpie=pi.codpie and pj.codpj=v.codpj and pj.ciudad=pv.ciudad;
+
+-------- Ejercicio 7 ------------
+
+select pj.codpj from ventas v, proveedor pv, proyecto pj
+where v.codpro=pv.codpro and v.codpj=pj.codpj and pj.ciudad<>pv.ciudad;
+
+-------- Ejercicio 8 ------------
+
+select pj.codpj from ventas v, pieza pi, proyecto pj
+where v.codpj=pj.codpj and v.codpie=pi.codpie and v.codpro='S1';
+
+-------- Ejercicio 9 ------------
+
+select cantidad from ventas v
+where v.cantidad <= ALL (select cantidad from ventas v2);
+
+-------- Ejercicio 10 ------------
+
+(select pv.codpro from ventas v, proveedor pv
+where v.codpro=pv.codpro)
+MINUS
+(select pv.codpro from ventas v, proveedor pv, pieza pi
+where v.codpro=pv.codpro and v.codpie=pi.codpie and pv.ciudad='Londres' and pi.color='Rojo');
+
+-------- Ejercicio 11 ------------
+
+(select pj.codpj from ventas v, proyecto pj
+where v.codpj=pj.codpj)
+intersect
+(select v.codpj from ventas v, proveedor pv
+where v.codpro=pv.codpro and pv.codpro='S1');
+
+-------- Ejercicio 12 ------------
+
+select distinct pi.codpie from ventas v, pieza pi, proyecto pj
+where v.codpie=pi.codpie and v.codpj=pj.codpj and pj.ciudad='Paris';
+
+(select pi.codpie from ventas v, pieza pi
+where v.codpie=pi.codpie)
+intersect 
+(select v.codpie from ventas v, proyecto pj
+where v.codpj=pj.codpj and pj.ciudad='Paris');
+
+-------- FIN DE LA RELACIÓN PROPUESTA ------------------

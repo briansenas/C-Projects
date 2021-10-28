@@ -1,0 +1,3 @@
+C:/Users/brian/Desktop/University3/ED/Ejercicios2/cmake-build-debug/CMakeFiles/Ejercicios2.dir
+C:/Users/brian/Desktop/University3/ED/Ejercicios2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/brian/Desktop/University3/ED/Ejercicios2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

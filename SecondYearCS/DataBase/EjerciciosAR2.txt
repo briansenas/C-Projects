@@ -1,0 +1,33 @@
+------------------ Problemas Propuestos 6.8 -------------------------
+-------- Ejercicio 1 ------------
+
+(select v.codpro from ventas v, proveedor pv
+where v.codpro=pv.codpro)
+intersect
+(select v.codpro from ventas v, pieza pi
+where v.codpie=pi.codpie and (pi.codpie='P1' or pi.codpie='P2');
+
+-------- Ejercicio 2 ------------
+
+select distinct v.codpie from ventas, proveedor pv
+where v.codpro=pv.codpro and pv.codpro='S4';
+
+(select pi.codpie from ventas v, piezas pi
+where v.codpie=pi.codpie)
+intersect
+(select v.codpie from ventas v, proveedor pv
+where v.codpro=pv.codpro and pv.codpro='S4'):
+
+-------- Ejercicio 3 ------------
+
+select pi.nompie, pi.codpie from ventas v, pieza pi
+where v.codpie=pi.codpie and pi.peso >= ALL (select pi.peso from pieza pi);
+
+-------- Ejercicio 4 ------------
+
+(select codpj from ventas)
+minus
+(select distinct v1.codpj from ventas v1, ventas v2
+where v1.codpie<>v2.codpie and v1.codpj=v2.codpj);
+
+------- FIN DE LA RELACIÓN PROPUESTA ------------------

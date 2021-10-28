@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1571076311 source:c:\users\brian\onedrive\documents\c++\projectile3d_final\main.cpp
+	<iostream>
+	<cmath>
+

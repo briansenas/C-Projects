@@ -1,0 +1,2 @@
+thread 0, suma a[0] = 0 / thread 0, suma a[1] = 1 / thread 0, suma a[2] = 2 / thread 0, suma a[3] = 3 / thread 1, suma a[4] = 4 / thread 1, suma a[5] = 5 / thread 1, suma a[6] = 6 / 
+thread 0 suma = 21 

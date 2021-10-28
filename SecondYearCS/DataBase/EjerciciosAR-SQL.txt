@@ -1,0 +1,209 @@
+Proveedor S(CodPro, NomPro, status, ciudad)
+Pieza P(CodPie, NomPie, color, peso, ciudad)
+Proyecto J(Codpj, Nompj, ciudad)
+Ventas SPJ (codpro, codpie, codpj, cantidad, fecha)
+
+-- 1. Encontrar los códigos de los proveedores que suministran alguna pieza a J1.
+Select codpro,codpj, cantidad, fecha from ventas 
+where codpj = 'J1'; 
+
+π codpie,cantidad,fecha (σ codpj='J1' (SPJ))
+
+-- 2. Encontrar los suministros cuya cantidad supere las 100 unidades
+
+Select codpro, codpie, codpj, cantidad from ventas
+where cantidad>100;
+
+π codpro, codpie, codpj, cantidad (σ cantidad > 100 (ventas))
+
+-- 3.Encontrar los nombres de proveedores, piezas y proyectos que se encuentran en la misma ciudad.
+
+(π NomPro, ciudad (S)) ⨝ (π NomPie, ciudad (P)) ⨝ (π Nompj, ciudad (J))
+
+Select NomPro, NomPie, Nompj from proveedor s, pieza p, proyecto j
+where s.ciudad = p.ciudad and p.ciudad = j.ciudad and s.ciudad = j.ciudad;
+
+-- 4. Encontrar los nombres de las piezas suministradas por los proveedores de Londres
+
+(π nompie, codpie(P)) ⨝ 
+((π codpie, codpro (SPJ))⨝(π codpro (σ ciudad='Londres'(S)))
+
+Select nompie from piezas p, proveedor pr, ventas v
+where pr.ciudad='Londres' and pr.codpro=v.codpro and p.codpie=v.codpie;
+
+-- 5. Encontrar todas las parejas de ciudades tales que la primera sea la de un proveedor y la segunda la de un proyecto entre los cuales haya algún suministro.
+
+Select pr.ciudad, pj.ciudad from ventas v, proveedor pr, proyecto pj 
+where v.codpro = pr.codpro and v.codpj = pj.codpj;
+
+π ciudadpj, ciudadpro (π codpro, codpj (S) ⨝ π codpj, γ ciudad, ciudadpj (J) ⨝ codpro, γ ciudad, ciudadpro (S)))
+
+-- 6. Encontrar los códigos de las piezas suministradas a algún proyecto por un proveedor que se encuentre en la misma ciudad que el proyecto.
+
+Select v.codpie from ventas v, proveedores pr, proyectos pj
+where v.codpro = pr.codpro and v.codpj = pj.codpj and pr.ciudad=pj.ciudad;
+
+(ventas x(Proyecto naturaljoin Proveedor) //Ciudad es el atributo en común)
+
+-- 7. Encontrar los códigos de los proyectos que tienen al menos un proveedor que no se encuentre en su misma ciudad 
+
+Select codpro, codpj from ventas v, proveedores pr, proyectos pj
+where v.codpro = pr.codpro and v.codpj = pj.codpj and pr.ciudad<>pj.ciudad;
+
+Se hace con una diferencia en algebra relacional.
+
+-- 8. Mostrar todas las ciudades de los proveedores en las que no fabriquen piezas.
+
+π ciudad (S) - π ciudad (P)
+
+Select ciudad from proveedores
+where ciudad not in ( select ciudad from pieza );
+
+Select ciudad from proveedores 
+MINUS
+Select ciudad from pieza;
+
+-- 9. Mostrar todas las ciudades de los proveedores en las que además se fabriquen piezas
+
+π ciudad (S) ∩ π ciudad (P)
+
+Select ciudad from proveedores
+UNION
+Select ciudad from piezas;
+
+-- 10. Encontrar la cantidad más pequeña enviada en algún suministro.
+
+π fecha, γ min(cantidad) -> mínimo (SPJ)
+
+Select cantidad from ventas
+-
+Select v.cantidad from ventas v,
+where v.cantidad < ( select v2.cantidad from ventas v2 );
+
+π cantidad (SPJ)
+-
+π B.cantidad<A.cantidad (ρ B (SPJ) ⨝ ρ A (SPJ))
+
+-- 11. Encontrar los códigos de los proyectos a los que S1 suministra todas las piezas existentes.
+
+π codpj, codpro (SPJ)
+÷
+π codpro (σ codpro='S1' (SPJ))
+
+select codpj, codpro from ventas v
+where not exists
+( select v2.codpj, v2.codpro from ventas v2 
+where v2.codpj = v.codpj and v.codpro = v2.codpro and v2.codpro<>'S1')
+
+########################################################################################################################
+
+ListaBoda LB(#Ref, desc, precio)
+Invitaciones I(Nom, dire, ciudad)
+Confirman IC(Nom, cantidad)
+Reserva_regalo RR(Nom, #Ref, fecha)
+
+-- 1. Encontrar los regalos (desc) que no han sido reservados
+π desc, #Ref (LB)
+-
+π #Ref (RR)
+select desc, #ref from ListaBoda LB,
+where not exists (select #ref from RR);
+
+-- 2. Encontrar la dire de los invitados que confirman la asistencia de más de dos personas.
+select i.nom, i.dire from invitaciones i, confirman ic
+where i.nom = ic.nom and ic.cantidad > 2;
+π nom, dire ( (σ cantidad > 2 (IC) ) ⨝ (I) )
+
+-- 3. Encontrar el nombre y la referencia del regalo más caro ya reservado
+π precio, desc((LB) ⨝ (π #Ref (RR)- π #Ref (σ A.cantidad < B.cantidad(ρ A (RR) x ρ B (RR))))
+γ max(precio) -> máximo (π #Ref (RR) ⨝ LB)
+
+########################################################################################################################
+Hombres(nomH,edad)
+Mujeres(nomM,edad)
+HSimM(nomH,nomM) -- El hombre le cae simpático a la mujer nomM
+MSimH(nomM,nomH)
+Matrim(nomH,nomM)
+
+-- 1. Hallas las parejas de hombres y mujeres que se caen mutuamente simpáticos, con edades entre 20 y 30 años y no estén casados entre si.
+
+-- 2. Hallar las mujeres casadas a las que no cae simpático su marido 
+
+-- 3. Hallas los hombres a lo que no les cae simpática ninguna mujer
+
+-- 4. Hallar las mujeres casadas a las que no les cae simpático ningún hombre casado.
+
+
+
+########################################################################################################################
+Conductor(DNI, Nom, Dire, Prov)
+Vehiculo(Mat,carga_max,fecha_compra)
+Ruta(Ruta#, ciudad_sal,ciudad_lleg,km)
+Viaje(Viaje#,dni,mat)
+Prog_viaje(viaje#,ruta#,dia_sem,hora_sal,hora_lleg)
+
+-- 1. Buscar el viaje más largo entre dos ciudades.
+π ciudad_sal, ciudad_lleg, km (ruta)
+-
+π a.ciudad_sal, a.ciudad_lleg, a.km (σ a.km<b.km(ρ a (ruta) ⨝ ρ b (ruta)))
+
+γ max(km) -> dist_max (ruta)
+
+-- 2.Nombre de conductores que han llevado todos los camiones de la empresa.
+π Nom, mat (Viaje ⨝ Conductor)
+÷
+π mat (Viaje ⨝ Vehiculo)
+
+-- 3. Encontrar qué días de la semana se hacen viajes entre Granada y Sevilla por la mañana (antes de las 13h)
+π dia_sem ( σ hora-sal<13∧(ciudad_sal='Granada'∨ ciudad_sal='Sevilla')∧(ciudad_lleg='Granada'∨ciudad_lleg='Sevilla') (Prog_viaje) ⨝ ruta )
+
+Select dia_sem from Prog_viaje Pv, ruta r where 
+pv.hora-sal < 13 and  r.ciudad_sal={'Granada','Sevilla'} and r.ciudad_lleg={'Granada', 'Sevilla'}
+
+-- 4. Encontrar las rutas que se hacen todos los días de la semana, suponiendo que hay viajes todos los días.
+select Ruta# from ruta r where
+not exist in (
+select Ruta# from ruta r2
+minus 
+select Ruta# from Prog_viaje pv where pv.ruta = r.ruta and count(dia_sem)=7);
+
+
+########################################################################################################################
+representante(dni,nom,dire,prov)
+zona_rep(dni,cod_zona,poblacion,provincia)
+pedidos(dni,cod_art,cantidad,poblacion)
+articulo(cod_art,nom,color,prov_fab)
+
+-- 1. Listar las provincias que son visitadas por todos los representantes.
+σ dni, provincia (zona_rep) ÷ σ dni (representante)
+
+Select provincia from zona_rep A
+where not exist (
+select dni from representante
+minus
+select dni from zona_rep B where B.provincia = A.provincia);
+
+-- 2. Encontrar los representantes que venden fuera de su provincia articulos fabricados en su provincia.
+A = (zona_rep)
+B = (representante)
+σ c.Dni=p.Dni, c.cod_art=p.cod_art, c.prov_fab<>p.poblacion (π Dni, cod_art, A.prov_fab (σ Articulo.prov_fab=B.provincia ( Articulo  ⨝ B ⨝ Pedidos )) c x pedidos p)
+
+-- 3. Obtener las poblaciones de Granada que hayan superado los 50.000 euros de facturación y quién realizó el pedido.
+π poblacion, dni (σ provincia='Granada'∧cantidad>50.000 (zona_rep ⨝ pedidos))
+
+select dni, cantidad, poblacion from pedidos p, zona_rep z 
+where z.provincia = 'Granada' and z.dni = p.dni and p.cantidad > 50.000;
+
+-- 4. Mostrar las zonas que incluyen a una sola población.
+π cond_zona (zona_rep)
+-
+π cond_zona (π dni ( σ p.poblacion!=p2.poblacion(ρ p (pedidos) x ρ p2 (pedidos) ) ⨝ zona_rep)
+
+Select cod_zona from zona_rep z, pedidos p 
+order by cod_zona 
+having count(poblacion)==1;
+
+Select cod_zona from zona_rep z
+minus
+Select cod_zona from zona_rep z2, pedidos p 
+where z2.dni=p.dni and p.poblacion=ALL(select poblacion from pedidos p2 where p2.dni = p.dni)

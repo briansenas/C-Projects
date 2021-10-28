@@ -1,0 +1,54 @@
+
+[MONOTONIC:STATIC,DEFAULT]
+Tiempo (seg.):0.650871214	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[AUTO]chunk:0
+
+[MONOTONIC:STATIC,1]
+Tiempo (seg.):0.634872735	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[AUTO]chunk:1
+
+[MONOTONIC:STATIC,64]
+Tiempo (seg.):0.640068561	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[AUTO]chunk:64
+
+[MONOTONIC:DYNAMIC,DEFAULT]
+Tiempo (seg.):0.639345739	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[DYNAMIC]chunk:1
+
+[MONOTONIC:DYNAMIC,1]
+Tiempo (seg.):0.635532711	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[DYNAMIC]chunk:1
+
+[MONOTONIC:DYNAMIC,64]
+Tiempo (seg.):0.636108361	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[DYNAMIC]chunk:64
+
+[MONOTONIC:GUIDED,DEFAULT]
+Tiempo (seg.):0.641730126	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[GUIDED]chunk:1
+
+[MONOTONIC:GUIDED,1]
+Tiempo (seg.):0.634740874	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[GUIDED]chunk:1
+
+[MONOTONIC:GUIDED,64]
+Tiempo (seg.):0.635897391	 tamaño: 23040
+v_result[0]=138240
+v_result[23039]=6
+[GUIDED]chunk:64

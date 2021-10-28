@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1572712761 source:c:\users\brian\onedrive\documents\c++\pringao\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+

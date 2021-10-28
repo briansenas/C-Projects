@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1571694959 source:c:\users\brian\onedrive\documents\c++\buclefoor\tablaequivalencia.cpp
+	<iostream>
+
+1571695249 source:c:\users\brian\onedrive\documents\c++\buclefoor\medianvar.cpp
+	<iostream>
+	<cmath>
+

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1574377303 source:c:\users\brian\onedrive\documents\c++\matrices\main.cpp
+	<iostream>
+	<vector>
+	<cstdlib>
+	<ctime>
+

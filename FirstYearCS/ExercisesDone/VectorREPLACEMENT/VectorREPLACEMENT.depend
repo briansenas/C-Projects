@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1574375753 source:c:\users\brian\onedrive\documents\c++\vectorreplacement\main.cpp
+	<iostream>
+	<vector>
+	<math.h>
+

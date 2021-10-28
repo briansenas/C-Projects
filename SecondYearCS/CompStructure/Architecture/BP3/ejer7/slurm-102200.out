@@ -1,0 +1,40 @@
+Tiempo (seg.):0.000000302	 tamaño: 10
+v_result[0]=60
+v_result[9]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000000548	 tamaño: 20
+v_result[0]=120
+v_result[19]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000001088	 tamaño: 30
+v_result[0]=180
+v_result[29]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000001840	 tamaño: 40
+v_result[0]=240
+v_result[39]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000002798	 tamaño: 50
+v_result[0]=300
+v_result[49]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000003979	 tamaño: 60
+v_result[0]=360
+v_result[59]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000005856	 tamaño: 70
+v_result[0]=420
+v_result[69]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000007551	 tamaño: 80
+v_result[0]=480
+v_result[79]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000009466	 tamaño: 90
+v_result[0]=540
+v_result[89]=6
+[DYNAMIC]chunk:1
+Tiempo (seg.):0.000011526	 tamaño: 100
+v_result[0]=600
+v_result[99]=6
+[DYNAMIC]chunk:1

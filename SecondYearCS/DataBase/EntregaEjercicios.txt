@@ -1,0 +1,54 @@
+BARCOS(Nom-Barco, Nom-Clase, Fecha-Cons, Pais)
+CLASE(Nom-Clase, Tipo, N-Cañones, Calibre, Tonelaje)
+BATALLA(Nom-Batalla, Localizacion)
+PARTICIPA(Nom-Batalla, Nom-Barco, Estado) 
+
+-- 1. Mostrar los nombres de los barcos que participaron en una sóla batalla.
+
+π Nom-Batalla (Participa)
+-
+π Nom-Batalla (σ A.Nom-Barco=B.Nom-Barco∧A.Nom-Batalla!=B.Nom-Batalla(ρ A (Participa) ⨯ ρ B (Participa))
+
+Select Nom-Barco from participa p1
+-
+Select Nom-Barco from participa p2, p3
+where p2.Nom-Barco = p3.Nom-Barco and p2.Nom-Batalla<>p3.Nom-Batalla
+
+select Nom-Barco, Nom-Batalla from participa
+group by Nom-Barco
+Having count(Nom-Batalla)=1; -- Solo si Nom-Batalla es NOT NULL.
+
+-- 2. Mostrar las batallas localizadas en el "Atlántico" en las que participaron todos los barcos construidos después de '01/03/1944'
+
+π Nom-Batalla,Nom-Barcos ((σ Localizacion='Atlántico' (Batalla) ⨝ Participa))
+÷
+π Nom-Barcos (σ Fecha-Cons>'01/03/1944' (Barcos))
+
+A = Select bat.Nom-Batalla, p.Nom-Barco from participa p, batalla bat
+where p.Nom-Batalla = bat.Nom-Batalla and bat.Localizacion = 'Atlántico';
+
+B = Select  NomBarco from A
+where not exist ( Select Nom-Barco from barcos where Fecha-Cons<'01/03/1944' );
+
+Select Nom-Batalla from A, B 
+where A.Nom-Barco = B.Nom-Barco;
+
+select nombatalla from batalla where localizacion='Pacifico' and --Dividendo
+not exist (
+select nombarco from barcos where fechacons > to_data('01/01/1844', 'dd/mm/yyyy') -- Divisor
+minus
+select nombarco from participa where nombatalla=batalla.nombatalla);  --Objetos iguales al divisor relacionados con el dividendo/solucion general.
+
+-- 3. Mostrar qué clase de barco tiene el mayor número de cañones.
+
+π Nom-Barco(σ A.N-Cañones>B.N-Cañones( ρ A (Clase) ⨯ ρ B (Clase) )
+
+γ max(N-Cañones) -> máximo (Clase)
+
+Select Nom-Clase, N-Cañones from clase c1
+-
+Select Nom-Clase from clase c2, clase c3
+where c2.Nom-Clase = c3.Nom-Clase and c2.N-Cañones < c3.N-Cañones;
+
+select nom-clase from clase where nomcañones>=ALL(select nomcañones from clase c2);
+select nom-clase from clase where nomcañones>=(select max(nomcañones) from clase c2);

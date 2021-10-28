@@ -1,0 +1,42 @@
+typename bintree<T>::node ancestro_comun(typename bintree<T>::node root, typename bintree<T>::node A, typename bintree<T>::node B){
+    if( root.null() ) return null;
+    if( *root == *A || *root == *B ) return root;
+
+    typename bintree<T>::node leftSearchResult = search(root.left(),A,B);
+    typename bintree<T>::node rightSearchResult = search(root.right(), A, B);
+
+    if(leftSearchResult.null()) return rightSearchResult;
+    if(rightSearchResult.null()) return leftSearchResult;
+    return root;
+} //Recursive Node based code for common ancestor.
+
+//Ejercicio 2 Better Inner-Loop_V2:
+    while (!pila.empty()) {
+        if(izq){
+            root = root.left();
+            pila_push(root);
+            height++;
+            izq = !root.left().null();
+            dcha = !root.right().null();
+            last = false;
+        }
+        else if(dcha){
+            root = root.right();
+            pila_push(root);
+            height++;
+            dcha = !root.right().null();
+            izqd = !root.left().null();
+            last = true;
+        }
+        else{
+            pila.pop(); //Valor que nos hemos atascado
+            root = pila.top(); //Reintentar;
+            pila.pop(); //No volver a un nodo ya visitado.
+            izqd = (last && !root.left().null());
+            dcha = (!last && !root.right().null());
+            if(height > maxHeight){
+                maxHeight = height;
+                height = 0;
+            }
+        }
+    }

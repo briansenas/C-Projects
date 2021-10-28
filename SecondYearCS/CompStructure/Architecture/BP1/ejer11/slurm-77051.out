@@ -1,0 +1,63 @@
+Tiempo ejecución secuencial:
+0.034340021
+
+real	0m0.544s
+user	0m0.459s
+sys	0m0.044s
+0.066213396
+
+real	0m0.996s
+user	0m0.900s
+sys	0m0.070s
+0.131142726
+
+real	0m1.927s
+user	0m1.738s
+sys	0m0.139s
+0.133037119
+
+real	0m1.899s
+user	0m1.740s
+sys	0m0.148s
+Tiempo ejecución de OpemMP-FOR:
+0.030723717
+
+real	0m0.083s
+user	0m0.081s
+sys	0m0.054s
+0.061988242
+
+real	0m0.149s
+user	0m0.163s
+sys	0m0.111s
+0.121539723
+
+real	0m0.281s
+user	0m0.326s
+sys	0m0.213s
+0.120948244
+
+real	0m0.276s
+user	0m0.322s
+sys	0m0.205s
+Tiempo ejecución de OpenMP-sections:
+0.032220230
+
+real	0m0.084s
+user	0m0.085s
+sys	0m0.057s
+0.060600813
+
+real	0m0.142s
+user	0m0.163s
+sys	0m0.099s
+0.120176207
+
+real	0m0.274s
+user	0m0.335s
+sys	0m0.186s
+0.118102640
+
+real	0m0.270s
+user	0m0.324s
+sys	0m0.190s
